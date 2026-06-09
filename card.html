@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Maya's Invitation Card 🐍</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐍</text></svg>" />
+  <style>
+    :root {
+      --green-1:#7ed957; --green-2:#33a02c; --green-deep:#1b6b16;
+      --leaf:#c7f0b5; --cream:#f4fff0; --ink:#234021; --pink:#ff5e7e;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; padding: 24px;
+      font-family: "Nunito", system-ui, sans-serif;
+      color: var(--ink);
+      background: linear-gradient(160deg,#eafbe2,#d2f3c4);
+      display: flex; flex-direction: column; align-items: center; gap: 16px;
+    }
+
+    /* ---- The card: 5in x 7in ---- */
+    .card {
+      width: 5in; height: 7in;
+      background:
+        radial-gradient(600px 200px at 50% 0%, rgba(126,217,87,.25), transparent 70%),
+        var(--cream);
+      border: 6px solid #fff;
+      outline: 3px solid var(--green-1);
+      border-radius: 18px;
+      box-shadow: 0 18px 40px -18px rgba(27,107,22,.5);
+      padding: 0.32in 0.34in;
+      display: flex; flex-direction: column; align-items: center; text-align: center;
+      overflow: hidden;
+    }
+
+    .eyebrow {
+      font-family:"Baloo 2",cursive; font-weight:700; letter-spacing:.04em;
+      color: var(--green-2); margin: 0; font-size: 15pt;
+    }
+
+    .art { margin: 6px auto 4px; transform: rotate(-1.5deg); position: relative; }
+    .art img {
+      display:block; width: 100%; max-width: 3.5in; height: auto;
+      background:#fff; padding:7px; border:1px solid #eadfae; border-radius:8px;
+      box-shadow: 0 8px 18px -10px rgba(27,107,22,.55);
+    }
+    .art figcaption { font-family:"Baloo 2",cursive; font-weight:700; color:var(--green-2); font-size:9.5pt; margin-top:5px; }
+
+    h1 {
+      font-family:"Baloo 2",cursive; font-weight:800; color: var(--green-deep);
+      font-size: 27pt; line-height: 1.02; margin: 6px 0 2px; text-shadow: 0 1.5px 0 #fff;
+    }
+    #age { color: var(--pink); }
+
+    .details { list-style:none; margin: 6px 0; padding:0; display:grid; gap:5px; font-size: 11.5pt; }
+    .details li { display:flex; gap:8px; justify-content:center; align-items:baseline; }
+    .details b { color: var(--green-2); }
+    .details .v { white-space: pre-line; }
+
+    .qr-block {
+      margin-top: auto; display:flex; align-items:center; gap:12px;
+      background:#fff; border:2px dashed var(--green-1); border-radius:14px; padding:9px 12px;
+    }
+    .qr-block img { width: 1.25in; height: 1.25in; display:block; }
+    .qr-text { text-align:left; }
+    .qr-text .scan { font-family:"Baloo 2",cursive; font-weight:800; color:var(--green-deep); font-size:14pt; line-height:1.1; }
+    .qr-text .sub { font-size: 9pt; margin-top:3px; }
+    .qr-text .url { font-size: 7.5pt; color: var(--green-2); word-break: break-all; margin-top:2px; }
+
+    /* ---- Screen-only toolbar ---- */
+    .toolbar { display:flex; gap:10px; align-items:center; flex-wrap:wrap; justify-content:center; }
+    .toolbar p { margin:0; font-size:.85rem; color:#3c5a39; max-width: 5in; text-align:center; }
+    button {
+      font-family:"Baloo 2",cursive; font-weight:700; font-size:1rem; color:#fff;
+      background: linear-gradient(135deg,var(--green-1),var(--green-2)); border:none;
+      border-radius:999px; padding:12px 26px; cursor:pointer;
+      box-shadow:0 8px 18px -6px var(--green-2);
+    }
+    button:hover { transform: translateY(-2px); }
+
+    @media print {
+      @page { size: 5in 7in; margin: 0; }
+      body { background:#fff; padding:0; }
+      .toolbar { display:none !important; }
+      .card { box-shadow:none; border-radius:0; width:5in; height:7in; }
+    }
+  </style>
+</head>
+<body>
+  <div class="toolbar">
+    <button onclick="window.print()">🖨️ Print / Save as PDF</button>
+    <p>Tip: in the print dialog choose <b>“Save as PDF”</b> to send digitally, or print on cardstock. Paper size is set to <b>5×7&nbsp;in</b>. Set margins to <b>None</b> and turn on <b>Background graphics</b> for best results.</p>
+  </div>
+
+  <div class="card">
+    <p class="eyebrow">You're Invited! 🎉</p>
+
+    <figure class="art">
+      <img src="assets/maya-drawing.png"
+           alt="Maya's hand-drawn invitation with Pikachu, Charizard and a friendly snake-dragon" />
+      <figcaption>🎨 drawn by Maya</figcaption>
+    </figure>
+
+    <h1 id="card-title">Maya is Turning <span id="age">8</span>!</h1>
+
+    <ul class="details">
+      <li><b>📅</b><span class="v" id="d-when">—</span></li>
+      <li><b>📍</b><span class="v" id="d-where">—</span></li>
+      <li><b>⏰</b><span class="v" id="d-rsvp">—</span></li>
+    </ul>
+
+    <div class="qr-block">
+      <img src="assets/qr.svg" alt="QR code linking to the party website" />
+      <div class="qr-text">
+        <div class="scan">Scan to RSVP 🐍</div>
+        <div class="sub">Point your camera here for all the details</div>
+        <div class="url" id="d-url">kodysmith.github.io/maya-birthday-party</div>
+      </div>
+    </div>
+  </div>
+
+  <script src="config.js"></script>
+  <script>
+    (function () {
+      var P = window.PARTY || {};
+      function set(id, v){ var el=document.getElementById(id); if(el && v) el.textContent=v; }
+      if (P.title) document.getElementById("card-title").textContent = P.title;
+      set("age", P.age);
+      set("d-when", P.when);
+      set("d-where", P.where);
+      set("d-rsvp", P.rsvpBy);
+      // hide any detail row that's empty
+      ["d-when","d-where","d-rsvp"].forEach(function(id){
+        var el=document.getElementById(id);
+        if (el && (!el.textContent || el.textContent==="—")) el.closest("li").style.display="none";
+      });
+    })();
+  </script>
+</body>
+</html>
