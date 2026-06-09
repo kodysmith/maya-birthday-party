@@ -5,6 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>You're Invited! 🐍</title>
   <meta name="description" content="Birthday party invitation & RSVP" />
+  <!-- Link preview (when shared via text/social) -->
+  <meta property="og:title" content="Maya is Turning 8! 🐍" />
+  <meta property="og:description" content="You're invited! Tap to see the details and RSVP." />
+  <meta property="og:image" content="https://kodysmith.github.io/maya-birthday-party/assets/maya-drawing.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://kodysmith.github.io/maya-birthday-party/" />
+  <meta name="twitter:card" content="summary_large_image" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet" />
@@ -17,24 +24,11 @@
   <main class="card">
     <!-- ===== INVITATION ===== -->
     <section class="invite">
-      <div class="snake-banner" aria-hidden="true">
-        <svg viewBox="0 0 240 120" class="snake" role="img">
-          <defs>
-            <linearGradient id="snakeBody" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stop-color="#7ed957" />
-              <stop offset="100%" stop-color="#33a02c" />
-            </linearGradient>
-          </defs>
-          <path d="M20 80 Q60 20 100 70 T180 60" fill="none" stroke="url(#snakeBody)" stroke-width="26" stroke-linecap="round" />
-          <circle cx="186" cy="56" r="20" fill="url(#snakeBody)" />
-          <circle cx="181" cy="50" r="5" fill="#fff" /><circle cx="182" cy="51" r="2.5" fill="#222" />
-          <circle cx="194" cy="50" r="5" fill="#fff" /><circle cx="195" cy="51" r="2.5" fill="#222" />
-          <path d="M205 58 q10 0 10 6 m-10 -1 q12 2 12 8" stroke="#ff5e7e" stroke-width="2.5" fill="none" stroke-linecap="round" />
-          <path d="M180 66 q6 5 12 0" stroke="#1b6b16" stroke-width="2.5" fill="none" stroke-linecap="round" />
-          <circle cx="176" cy="62" r="3" fill="#ffb3c1" opacity=".8" />
-          <circle cx="197" cy="62" r="3" fill="#ffb3c1" opacity=".8" />
-        </svg>
-      </div>
+      <figure class="art">
+        <img src="assets/maya-drawing.png" width="2511" height="1480"
+             alt="Maya's hand-drawn birthday invitation: Pikachu, Charizard, and a friendly snake-dragon, reading 'Please come to our Birthday Party! From Maya'" />
+        <figcaption>🎨 drawn by Maya</figcaption>
+      </figure>
 
       <p class="eyebrow">You're Invited! <span class="wiggle">🎉</span></p>
       <h1 id="title">Sssomeone's Turning <span id="age">?</span>!</h1>

@@ -63,6 +63,47 @@ body {
     var(--cream);
 }
 
+/* Maya's hand-drawn invite — framed like art taped to the fridge */
+.art {
+  margin: 4px auto 18px;
+  max-width: 100%;
+  position: relative;
+  width: fit-content;
+  transform: rotate(-1.5deg);
+}
+.art img {
+  display: block;
+  width: 100%;
+  max-width: 460px;
+  height: auto;
+  border-radius: 10px;
+  background: #fff;
+  padding: 10px;
+  border: 1px solid #eadfae;
+  box-shadow: 0 14px 30px -12px rgba(27, 107, 22, .55);
+}
+/* a little strip of "tape" at the top */
+.art::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%) rotate(2deg);
+  width: 90px;
+  height: 24px;
+  background: rgba(126, 217, 87, .45);
+  border: 1px dashed rgba(27, 107, 22, .3);
+  border-radius: 2px;
+}
+.art figcaption {
+  font-family: "Baloo 2", cursive;
+  font-weight: 700;
+  color: var(--green-2);
+  text-align: center;
+  margin-top: 8px;
+  font-size: .95rem;
+}
+
 .snake-banner { display: flex; justify-content: center; }
 .snake { width: 200px; height: auto; }
 .snake path[stroke^="url"] { animation: slither 4s ease-in-out infinite; transform-origin: center; }
