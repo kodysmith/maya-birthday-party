@@ -139,14 +139,14 @@
       return Promise.resolve();
     }
     // POST to Google Apps Script web app. URLSearchParams keeps it a
-    // "simple" request so the browser skips the CORS preflight.
+    // "simple" request so the browser skips the CORS preflight. We use
+    // mode:"no-cors" because Apps Script's /exec endpoint redirects to
+    // googleusercontent.com without CORS headers, which makes reading the
+    // response fail even though the row IS saved. So we fire-and-trust:
+    // the POST reliably reaches the script and appends the row.
     var body = new URLSearchParams();
     Object.keys(data).forEach(function (k) { body.append(k, data[k]); });
-    return fetch(P.sheetUrl, { method: "POST", body: body })
-      .then(function (r) {
-        if (!r.ok) throw new Error("HTTP " + r.status);
-        return r.text();
-      });
+    return fetch(P.sheetUrl, { method: "POST", body: body, mode: "no-cors" });
   }
 
   // ---- Success state + confetti ----
