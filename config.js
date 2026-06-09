@@ -41,5 +41,5 @@ window.PARTY = {
   // ---- Where RSVPs are sent ----
   // Paste your Google Apps Script Web App URL here (see README.md, step-by-step).
   // Until you do, RSVPs are saved in the browser so you can still test the form.
-  sheetUrl: "",
+  sheetUrl: "https://script.google.com/macros/s/AKfycbwXg4LLOAfwSc-thMLDaosoOL9KBszYiM71jJssnJxSC3-XvKz4nRmELyul9j5a4vWe/exec",
 };
