@@ -12,7 +12,7 @@ window.PARTY = {
   guestOfHonor: "Maya",
   when: "Friday, August 14, 2026 · Time TBD",
   where: "Location TBD",
-  rsvpBy: "", // add a deadline later, e.g. "Please RSVP by Aug 7th"
+  rsvpBy: "Please RSVP by Friday, August 7",
 
   // Extra notes (allergies-friendly, drop-off, what to bring...). Leave "" to hide.
   notes: "",
