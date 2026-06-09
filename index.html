@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>You're Invited! 🐍</title>
+  <meta name="description" content="Birthday party invitation & RSVP" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐍</text></svg>" />
+</head>
+<body>
+  <div class="leaves" aria-hidden="true"></div>
+
+  <main class="card">
+    <!-- ===== INVITATION ===== -->
+    <section class="invite">
+      <div class="snake-banner" aria-hidden="true">
+        <svg viewBox="0 0 240 120" class="snake" role="img">
+          <defs>
+            <linearGradient id="snakeBody" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#7ed957" />
+              <stop offset="100%" stop-color="#33a02c" />
+            </linearGradient>
+          </defs>
+          <path d="M20 80 Q60 20 100 70 T180 60" fill="none" stroke="url(#snakeBody)" stroke-width="26" stroke-linecap="round" />
+          <circle cx="186" cy="56" r="20" fill="url(#snakeBody)" />
+          <circle cx="181" cy="50" r="5" fill="#fff" /><circle cx="182" cy="51" r="2.5" fill="#222" />
+          <circle cx="194" cy="50" r="5" fill="#fff" /><circle cx="195" cy="51" r="2.5" fill="#222" />
+          <path d="M205 58 q10 0 10 6 m-10 -1 q12 2 12 8" stroke="#ff5e7e" stroke-width="2.5" fill="none" stroke-linecap="round" />
+          <path d="M180 66 q6 5 12 0" stroke="#1b6b16" stroke-width="2.5" fill="none" stroke-linecap="round" />
+          <circle cx="176" cy="62" r="3" fill="#ffb3c1" opacity=".8" />
+          <circle cx="197" cy="62" r="3" fill="#ffb3c1" opacity=".8" />
+        </svg>
+      </div>
+
+      <p class="eyebrow">You're Invited! <span class="wiggle">🎉</span></p>
+      <h1 id="title">Sssomeone's Turning <span id="age">?</span>!</h1>
+      <p class="subtitle">Join us for a <strong>sssuper</strong> <span id="theme-word">snake-tastic</span> birthday bash 🐍</p>
+
+      <ul class="details">
+        <li><span class="ico">🎂</span><span><b>Guest of honor</b><br /><span id="d-name">—</span></span></li>
+        <li><span class="ico">📅</span><span><b>When</b><br /><span id="d-when">—</span></span></li>
+        <li><span class="ico">📍</span><span><b>Where</b><br /><span id="d-where">—</span></span></li>
+        <li><span class="ico">⏰</span><span><b>RSVP by</b><br /><span id="d-rsvp">—</span></span></li>
+      </ul>
+
+      <p class="notes" id="d-notes"></p>
+
+      <div class="actions" id="actions">
+        <a href="#rsvp" class="cta">Count Me In! 🐍</a>
+        <a href="#" class="btn-ghost" id="btn-calendar" hidden>📅 Add to calendar</a>
+        <a href="#" class="btn-ghost" id="btn-map" target="_blank" rel="noopener" hidden>📍 Get directions</a>
+      </div>
+
+      <!-- Gift / wishlist -->
+      <div class="mini-card gift" id="gift-block" hidden>
+        <h3>🎁 Gifts</h3>
+        <p id="gift-note"></p>
+        <a href="#" class="btn-ghost" id="btn-wishlist" target="_blank" rel="noopener" hidden>See the wishlist</a>
+      </div>
+
+      <!-- Host contact -->
+      <div class="mini-card host" id="host-block" hidden>
+        <h3>Questions?</h3>
+        <p>Reach <span id="host-name">the host</span>:</p>
+        <div class="host-actions">
+          <a href="#" class="btn-ghost" id="btn-text" hidden>💬 Text</a>
+          <a href="#" class="btn-ghost" id="btn-call" hidden>📞 Call</a>
+          <a href="#" class="btn-ghost" id="btn-save-contact" download="party-host.vcf" hidden>👤 Save contact</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== RSVP FORM ===== -->
+    <section class="rsvp" id="rsvp">
+      <h2>RSVP</h2>
+      <p class="rsvp-sub">Let us know if you can sssslither on over!</p>
+
+      <form id="rsvp-form" novalidate>
+        <label>
+          Child's name <span class="req">*</span>
+          <input type="text" name="childName" required autocomplete="off" placeholder="e.g. Ava" />
+        </label>
+
+        <label>
+          Parent / guardian name <span class="req">*</span>
+          <input type="text" name="parentName" required autocomplete="name" placeholder="Your name" />
+        </label>
+
+        <label>
+          Email or phone <span class="req">*</span>
+          <input type="text" name="contact" required autocomplete="email" placeholder="So we can reach you" />
+        </label>
+
+        <fieldset class="attending">
+          <legend>Will you make it? <span class="req">*</span></legend>
+          <label class="pill"><input type="radio" name="attending" value="Yes" required /><span>🎉 Yes!</span></label>
+          <label class="pill"><input type="radio" name="attending" value="No" /><span>😢 Can't come</span></label>
+          <label class="pill"><input type="radio" name="attending" value="Maybe" /><span>🤔 Maybe</span></label>
+        </fieldset>
+
+        <label class="half">
+          Number of kids attending
+          <input type="number" name="guestCount" min="0" max="20" value="1" inputmode="numeric" />
+        </label>
+
+        <label>
+          Allergies / dietary notes
+          <input type="text" name="allergies" placeholder="Optional — e.g. nut allergy" />
+        </label>
+
+        <label>
+          A note for the birthday kid 💌
+          <textarea name="message" rows="3" placeholder="Optional"></textarea>
+        </label>
+
+        <button type="submit" id="submit-btn">Send RSVP 💚</button>
+        <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+  </main>
+
+  <footer>Made with 💚 and lots of sss 🐍</footer>
+
+  <!-- success confetti layer -->
+  <canvas id="confetti" aria-hidden="true"></canvas>
+
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
