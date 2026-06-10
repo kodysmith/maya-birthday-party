@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Print Maya's Invites (2 per page) 🐍</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐍</text></svg>" />
+  <style>
+    :root {
+      --green-1:#7ed957; --green-2:#33a02c; --green-deep:#1b6b16;
+      --leaf:#c7f0b5; --cream:#f4fff0; --ink:#234021; --pink:#ff5e7e;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin:0; font-family:"Nunito",system-ui,sans-serif; color:var(--ink);
+      background:#dfeedd; padding:20px; display:flex; flex-direction:column; align-items:center; gap:18px;
+    }
+
+    /* ---- Letter sheet: two stacked half-letter cards ---- */
+    .sheet {
+      width: 8.5in; height: 11in;
+      display: flex; flex-direction: column;
+      background:#fff; box-shadow: 0 14px 30px -16px rgba(0,0,0,.4);
+    }
+    .card2 {
+      width: 8.5in; height: 5.5in;
+      border: 1px dashed #9fc78f;            /* cut guide */
+      overflow: hidden;
+      background:
+        radial-gradient(500px 160px at 30% 0%, rgba(126,217,87,.18), transparent 70%),
+        var(--cream);
+    }
+
+    /* ---------- FRONT (landscape, two columns) ---------- */
+    .card2.front { display:flex; flex-direction:row; align-items:center; padding: 0.35in 0.4in; gap: 0.34in; }
+    .front .left { flex: 0 0 3.7in; display:flex; justify-content:center; }
+    .front .art { transform: rotate(-1.5deg); }
+    .front .art img {
+      display:block; width:100%; max-width:3.6in; height:auto;
+      background:#fff; padding:7px; border:1px solid #eadfae; border-radius:8px;
+      box-shadow:0 8px 18px -10px rgba(27,107,22,.55);
+    }
+    .front .art figcaption { font-family:"Baloo 2",cursive; font-weight:700; color:var(--green-2); font-size:9.5pt; margin-top:6px; text-align:center; }
+
+    .front .right { flex:1; display:flex; flex-direction:column; text-align:left; }
+    .front .eyebrow { font-family:"Baloo 2",cursive; font-weight:700; color:var(--green-2); margin:0; font-size:13pt; letter-spacing:.03em; }
+    .front h1 { font-family:"Baloo 2",cursive; font-weight:800; color:var(--green-deep); font-size:29pt; line-height:1; margin:3px 0 6px; text-shadow:0 1.5px 0 #fff; }
+    .front h1 .age { color:var(--pink); }
+    .front .details { list-style:none; margin:2px 0 8px; padding:0; display:grid; gap:5px; font-size:11.5pt; }
+    .front .details li { display:flex; gap:8px; align-items:baseline; }
+    .front .details .v { white-space:pre-line; }
+
+    .front .qr-block { margin-top:auto; display:flex; align-items:center; gap:11px; background:#fff; border:1.5px dashed var(--green-1); border-radius:12px; padding:8px 11px; align-self:flex-start; }
+    .front .qr-block img { width:1.25in; height:1.25in; display:block; }
+    .front .qr-text .scan { font-family:"Baloo 2",cursive; font-weight:800; color:var(--green-deep); font-size:13pt; line-height:1.05; }
+    .front .qr-text .sub { font-size:8.5pt; margin-top:2px; }
+    .front .qr-text .url { font-size:7.5pt; color:var(--green-2); word-break:break-all; margin-top:1px; }
+
+    /* ---------- BACK (landscape, centered) ---------- */
+    .card2.back {
+      display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; padding:0.4in;
+      background:
+        radial-gradient(circle at 10% 20%, var(--leaf) 0 6px, transparent 7px),
+        radial-gradient(circle at 90% 22%, var(--leaf) 0 5px, transparent 6px),
+        radial-gradient(circle at 82% 84%, var(--leaf) 0 6px, transparent 7px),
+        radial-gradient(circle at 16% 82%, var(--leaf) 0 5px, transparent 6px),
+        linear-gradient(160deg,#eafbe2,#d2f3c4);
+    }
+    .back .snek { font-size:30pt; line-height:1; }
+    .back .bigtitle { font-family:"Baloo 2",cursive; font-weight:800; color:var(--green-deep); font-size:26pt; margin:0; text-shadow:0 1.5px 0 #fff; }
+    .back .bigtitle .age { color:var(--pink); }
+    .back .when { font-size:12pt; font-weight:700; color:var(--ink); }
+    .back .lines { width:74%; display:grid; gap:18px; margin:8px 0; }
+    .back .line { display:flex; align-items:baseline; gap:10px; font-family:"Baloo 2",cursive; font-weight:700; color:var(--green-2); font-size:15pt; }
+    .back .line span { flex:1; border-bottom:2px dotted var(--green-2); height:1.1em; }
+    .back .qr-mini { display:flex; align-items:center; gap:8px; }
+    .back .qr-mini img { width:0.95in; height:0.95in; }
+    .back .qr-mini small { font-size:8.5pt; color:var(--green-2); font-weight:700; }
+
+    /* ---------- Screen toolbar ---------- */
+    .toolbar { display:flex; flex-direction:column; gap:8px; align-items:center; max-width:8.5in; }
+    .toolbar p { margin:0; font-size:.85rem; color:#33502f; text-align:center; }
+    .toolbar b { color: var(--green-deep); }
+    .toolbar a { color: var(--green-2); }
+    button { font-family:"Baloo 2",cursive; font-weight:700; font-size:1rem; color:#fff; background:linear-gradient(135deg,var(--green-1),var(--green-2)); border:none; border-radius:999px; padding:12px 26px; cursor:pointer; box-shadow:0 8px 18px -6px var(--green-2); }
+    button:hover { transform: translateY(-2px); }
+    .sheet-label { font-family:"Baloo 2",cursive; font-weight:700; color:#3c5a39; }
+
+    @media print {
+      @page { size: letter portrait; margin: 0; }
+      body { background:#fff; padding:0; gap:0; }
+      .toolbar, .sheet-label { display:none !important; }
+      .sheet { box-shadow:none; page-break-after: always; }
+      .sheet:last-of-type { page-break-after: auto; }
+    }
+  </style>
+</head>
+<body>
+  <div class="toolbar">
+    <button onclick="window.print()">🖨️ Print (2 per page)</button>
+    <p>Two pages print: <b>Page 1 = fronts</b>, <b>Page 2 = backs</b>. For double-sided choose
+       <b>Print on both sides</b> (flip on <b>long edge</b>), paper <b>Letter</b>, margins <b>None</b>,
+       <b>Background graphics ON</b>. One cut across the middle. ✂️</p>
+    <p>Want smaller cards? Use the <a href="print.html">4-per-page sheet →</a></p>
+  </div>
+
+  <div class="sheet-label">PAGE 1 — FRONTS</div>
+  <div class="sheet" id="fronts"></div>
+
+  <div class="sheet-label">PAGE 2 — BACKS</div>
+  <div class="sheet" id="backs"></div>
+
+  <template id="t-front">
+    <div class="card2 front">
+      <div class="left">
+        <figure class="art">
+          <img src="assets/maya-drawing.png" alt="Maya's hand-drawn invitation" />
+          <figcaption>🎨 drawn by Maya</figcaption>
+        </figure>
+      </div>
+      <div class="right">
+        <p class="eyebrow">You're Invited! 🎉</p>
+        <h1>Maya is Turning <span class="age">8</span>!</h1>
+        <ul class="details">
+          <li class="r-when"><b>📅</b><span class="v when">—</span></li>
+          <li class="r-where"><b>📍</b><span class="v where">—</span></li>
+          <li class="r-rsvp"><b>⏰</b><span class="v rsvp">—</span></li>
+        </ul>
+        <div class="qr-block">
+          <img src="assets/qr.svg" alt="QR code to the party website" />
+          <div class="qr-text">
+            <div class="scan">Scan to RSVP 🐍</div>
+            <div class="sub">Point your camera here for all the details</div>
+            <div class="url">kodysmith.github.io/maya-birthday-party</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <template id="t-back">
+    <div class="card2 back">
+      <div class="snek">🐍 ✨ 🎂</div>
+      <h2 class="bigtitle">Maya is Turning <span class="age">8</span>!</h2>
+      <div class="when when2">—</div>
+      <div class="lines">
+        <div class="line">To:<span></span></div>
+        <div class="line">From: Maya 💚</div>
+      </div>
+      <div class="qr-mini">
+        <img src="assets/qr.svg" alt="QR code to the party website" />
+        <small>scan to RSVP</small>
+      </div>
+    </div>
+  </template>
+
+  <script src="config.js"></script>
+  <script>
+    (function () {
+      var P = window.PARTY || {};
+      var fronts = document.getElementById("fronts");
+      var backs  = document.getElementById("backs");
+      var tFront = document.getElementById("t-front");
+      var tBack  = document.getElementById("t-back");
+
+      function fillFront(node) {
+        if (P.title) node.querySelector("h1").innerHTML =
+          P.title.replace(/(\d+)/, '<span class="age">$1</span>');
+        setRow(node, ".r-when", ".when", P.when);
+        setRow(node, ".r-where", ".where", P.where);
+        setRow(node, ".r-rsvp", ".rsvp", P.rsvpBy);
+      }
+      function setRow(node, rowSel, valSel, val) {
+        var v = node.querySelector(valSel);
+        if (val) v.textContent = val; else node.querySelector(rowSel).style.display = "none";
+      }
+      function fillBack(node) {
+        if (P.title) node.querySelector(".bigtitle").innerHTML =
+          P.title.replace(/(\d+)/, '<span class="age">$1</span>');
+        var w = node.querySelector(".when2");
+        if (P.when) w.textContent = P.when; else w.style.display = "none";
+      }
+
+      for (var i = 0; i < 2; i++) {
+        var f = tFront.content.cloneNode(true); fillFront(f); fronts.appendChild(f);
+        var b = tBack.content.cloneNode(true);  fillBack(b);  backs.appendChild(b);
+      }
+    })();
+  </script>
+</body>
+</html>
