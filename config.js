@@ -10,8 +10,8 @@ window.PARTY = {
 
   // Shown in the details list
   guestOfHonor: "Maya",
-  when: "Friday, August 14, 2026 · Time TBD",
-  where: "Location TBD",
+  when: "Saturday, August 15, 2026 · 2:00 PM",
+  where: "Fowler Creek Park\nAltia Ave & Cortona Dr\nSan Jose, CA 95135\n(Evergreen neighborhood)",
   rsvpBy: "Please RSVP by Friday, August 7",
 
   // Extra notes (allergies-friendly, drop-off, what to bring...). Leave "" to hide.
@@ -20,14 +20,12 @@ window.PARTY = {
   // ---- Add-to-calendar button ----
   // Local times in the format YYYY-MM-DDTHH:MM  (24-hour clock).
   // Leave eventStart "" to hide the calendar + maps buttons.
-  // (Hidden for now — fill in once the time is set.)
-  eventStart: "",
-  eventEnd: "",
+  eventStart: "2026-08-15T14:00",
+  eventEnd: "2026-08-15T16:00", // assumed 2-hour party; change if needed
 
   // ---- Map / directions button ----
   // A plain address. Used for the "Get directions" button.
-  // (Hidden until the location is decided.)
-  mapAddress: "",
+  mapAddress: "Fowler Creek Park, San Jose, CA 95135",
 
   // ---- Gift / wishlist note ----  (leave giftNote "" to hide the section)
   giftNote: "",
