@@ -9,7 +9,7 @@ window.PARTY = {
   age: "8",
 
   // Shown in the details list
-  guestOfHonor: "Maya",
+  guestOfHonor: "Maya Smith",
   when: "Saturday, August 15, 2026 · 2:00 PM",
   where: "Fowler Creek Park\nAltia Ave & Cortona Dr\nSan Jose, CA 95135\n(Evergreen neighborhood)",
   rsvpBy: "Please RSVP by Friday, August 7",
