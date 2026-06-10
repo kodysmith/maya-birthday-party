@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Print Maya's Invites — drawing front / details back 🐍</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐍</text></svg>" />
+  <style>
+    :root {
+      --green-1:#7ed957; --green-2:#33a02c; --green-deep:#1b6b16;
+      --leaf:#c7f0b5; --cream:#f4fff0; --ink:#234021; --pink:#ff5e7e;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin:0; font-family:"Nunito",system-ui,sans-serif; color:var(--ink);
+      background:#dfeedd; padding:20px; display:flex; flex-direction:column; align-items:center; gap:18px;
+    }
+
+    .sheet {
+      width: 8.5in; height: 11in;
+      display: flex; flex-direction: column;
+      background:#fff; box-shadow: 0 14px 30px -16px rgba(0,0,0,.4);
+    }
+    .card2 {
+      width: 8.5in;
+      border: 1px dashed #9fc78f;            /* cut guide */
+      overflow: hidden;
+    }
+    /* height depends on how many per page */
+    .n2 .card2 { height: 5.5in; }
+    .n3 .card2 { height: 3.6667in; }
+
+    /* ---------- PICTURE side (drawing only) ---------- */
+    .card2.pic {
+      display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px;
+      padding: 0.28in;
+      background:
+        radial-gradient(700px 220px at 50% 0%, rgba(126,217,87,.20), transparent 70%),
+        var(--cream);
+    }
+    .pic .art { transform: rotate(-1deg); display:flex; flex-direction:column; align-items:center; }
+    .pic .art img {
+      display:block; width:auto; height:auto;
+      background:#fff; padding:9px; border:1px solid #eadfae; border-radius:10px;
+      box-shadow:0 10px 22px -12px rgba(27,107,22,.55);
+    }
+    .pic .art figcaption { font-family:"Baloo 2",cursive; font-weight:700; color:var(--green-2); margin-top:7px; }
+    .n2 .pic .art img { max-width: 7.4in; max-height: 4.15in; }
+    .n2 .pic .art figcaption { font-size:11pt; }
+    .n3 .pic .art img { max-width: 5.4in; max-height: 2.75in; padding:6px; }
+    .n3 .pic .art figcaption { font-size:9pt; margin-top:4px; }
+
+    /* ---------- DETAILS side ---------- */
+    .card2.info {
+      display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;
+      padding: 0.3in 0.5in;
+      background:
+        radial-gradient(circle at 8% 16%, var(--leaf) 0 5px, transparent 6px),
+        radial-gradient(circle at 92% 18%, var(--leaf) 0 4px, transparent 5px),
+        radial-gradient(circle at 88% 86%, var(--leaf) 0 5px, transparent 6px),
+        radial-gradient(circle at 12% 84%, var(--leaf) 0 4px, transparent 5px),
+        linear-gradient(165deg,#f1fded,#ffffff);
+    }
+    .info .eyebrow { font-family:"Baloo 2",cursive; font-weight:700; color:var(--green-2); margin:0; letter-spacing:.03em; }
+    .info h1 { font-family:"Baloo 2",cursive; font-weight:800; color:var(--green-deep); line-height:1; margin:3px 0 8px; text-shadow:0 1.5px 0 #fff; }
+    .info h1 .age { color:var(--pink); }
+    .info .details { list-style:none; margin:4px 0 10px; padding:0; display:grid; }
+    .info .details li { display:flex; gap:9px; justify-content:center; align-items:baseline; }
+    .info .details b { color:var(--green-2); }
+    .info .details .v { white-space:pre-line; }
+    .info .qr-block { display:flex; align-items:center; gap:12px; background:#fff; border:1.5px dashed var(--green-1); border-radius:12px; padding:8px 13px; }
+    .info .qr-text { text-align:left; }
+    .info .qr-text .scan { font-family:"Baloo 2",cursive; font-weight:800; color:var(--green-deep); line-height:1.05; }
+    .info .qr-text .sub { margin-top:2px; }
+    .info .qr-text .url { color:var(--green-2); word-break:break-all; margin-top:1px; }
+    /* size variants */
+    .n2 .info .eyebrow { font-size:14pt; }
+    .n2 .info h1 { font-size:30pt; }
+    .n2 .info .details { gap:7px; font-size:13pt; }
+    .n2 .info .qr-block img { width:1.15in; height:1.15in; }
+    .n2 .info .qr-text .scan { font-size:13pt; }
+    .n2 .info .qr-text .sub { font-size:8.5pt; }
+    .n2 .info .qr-text .url { font-size:7.5pt; }
+    .n3 .info { padding:0.18in 0.45in; }
+    .n3 .info .eyebrow { font-size:11pt; }
+    .n3 .info h1 { font-size:21pt; margin:1px 0 5px; }
+    .n3 .info .details { gap:3px; font-size:10.5pt; margin:2px 0 7px; }
+    .n3 .info .qr-block { gap:9px; padding:6px 9px; }
+    .n3 .info .qr-block img { width:0.85in; height:0.85in; }
+    .n3 .info .qr-text .scan { font-size:11pt; }
+    .n3 .info .qr-text .sub { font-size:7pt; }
+    .n3 .info .qr-text .url { font-size:6.5pt; }
+
+    /* ---------- Screen toolbar ---------- */
+    .toolbar { display:flex; flex-direction:column; gap:10px; align-items:center; max-width:8.5in; }
+    .toolbar .row { display:flex; gap:8px; flex-wrap:wrap; justify-content:center; align-items:center; }
+    .toolbar p { margin:0; font-size:.85rem; color:#33502f; text-align:center; }
+    .toolbar b { color: var(--green-deep); }
+    .toolbar a { color: var(--green-2); }
+    button { font-family:"Baloo 2",cursive; font-weight:700; font-size:1rem; color:#fff; background:linear-gradient(135deg,var(--green-1),var(--green-2)); border:none; border-radius:999px; padding:11px 22px; cursor:pointer; box-shadow:0 8px 18px -6px var(--green-2); }
+    button:hover { transform: translateY(-2px); }
+    button.toggle { background:#fff; color:var(--green-2); border:2px solid var(--green-1); box-shadow:none; padding:9px 18px; }
+    button.toggle[aria-pressed="true"] { background:var(--green-1); color:#fff; }
+    .sheet-label { font-family:"Baloo 2",cursive; font-weight:700; color:#3c5a39; }
+
+    @media print {
+      @page { size: letter portrait; margin: 0; }
+      body { background:#fff; padding:0; gap:0; }
+      .toolbar, .sheet-label { display:none !important; }
+      .sheet { box-shadow:none; page-break-after: always; }
+      .sheet:last-of-type { page-break-after: auto; }
+    }
+  </style>
+</head>
+<body>
+  <div class="toolbar">
+    <div class="row">
+      <span style="font-weight:700;color:#33502f;">Cards per page:</span>
+      <button class="toggle" id="btn-2" aria-pressed="true" onclick="render(2)">2 per page</button>
+      <button class="toggle" id="btn-3" aria-pressed="false" onclick="render(3)">3 per page</button>
+    </div>
+    <div class="row"><button onclick="window.print()">🖨️ Print</button></div>
+    <p><b>Page 1 = Maya's drawing</b> (front), <b>Page 2 = details + QR</b> (back).
+       Print <b>on both sides</b>, flip on <b>long edge</b>, paper <b>Letter</b>, margins <b>None</b>,
+       <b>Background graphics ON</b>. Cut along the dashed lines. ✂️</p>
+    <p>Other layouts: <a href="print-2up.html">drawing + details together (2-up) →</a> · <a href="print.html">4-up →</a></p>
+  </div>
+
+  <div class="sheet-label">PAGE 1 — DRAWING (front)</div>
+  <div class="sheet n2" id="pics"></div>
+
+  <div class="sheet-label">PAGE 2 — DETAILS (back)</div>
+  <div class="sheet n2" id="infos"></div>
+
+  <template id="t-pic">
+    <div class="card2 pic">
+      <figure class="art">
+        <img src="assets/maya-drawing.png" alt="Maya's hand-drawn birthday invitation" />
+        <figcaption>🎨 drawn by Maya</figcaption>
+      </figure>
+    </div>
+  </template>
+
+  <template id="t-info">
+    <div class="card2 info">
+      <p class="eyebrow">You're Invited! 🎉</p>
+      <h1>Maya is Turning <span class="age">8</span>!</h1>
+      <ul class="details">
+        <li class="r-when"><b>📅</b><span class="v when">—</span></li>
+        <li class="r-where"><b>📍</b><span class="v where">—</span></li>
+        <li class="r-rsvp"><b>⏰</b><span class="v rsvp">—</span></li>
+      </ul>
+      <div class="qr-block">
+        <img src="assets/qr.svg" alt="QR code to the party website" />
+        <div class="qr-text">
+          <div class="scan">Scan to RSVP 🐍</div>
+          <div class="sub">Point your camera here for all the details</div>
+          <div class="url">kodysmith.github.io/maya-birthday-party</div>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <script src="config.js"></script>
+  <script>
+    var P = window.PARTY || {};
+    var pics = document.getElementById("pics");
+    var infos = document.getElementById("infos");
+    var tPic = document.getElementById("t-pic");
+    var tInfo = document.getElementById("t-info");
+
+    function fillInfo(node) {
+      if (P.title) node.querySelector("h1").innerHTML =
+        P.title.replace(/(\d+)/, '<span class="age">$1</span>');
+      setRow(node, ".r-when", ".when", P.when);
+      setRow(node, ".r-where", ".where", P.where);
+      setRow(node, ".r-rsvp", ".rsvp", P.rsvpBy);
+    }
+    function setRow(node, rowSel, valSel, val) {
+      var v = node.querySelector(valSel);
+      if (val) v.textContent = val; else node.querySelector(rowSel).style.display = "none";
+    }
+
+    function render(n) {
+      pics.innerHTML = ""; infos.innerHTML = "";
+      pics.className = "sheet n" + n;
+      infos.className = "sheet n" + n;
+      for (var i = 0; i < n; i++) {
+        pics.appendChild(tPic.content.cloneNode(true));
+        var info = tInfo.content.cloneNode(true); fillInfo(info); infos.appendChild(info);
+      }
+      document.getElementById("btn-2").setAttribute("aria-pressed", n === 2);
+      document.getElementById("btn-3").setAttribute("aria-pressed", n === 3);
+    }
+
+    render(2);
+  </script>
+</body>
+</html>
